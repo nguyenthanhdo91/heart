@@ -16,7 +16,7 @@
       height: 100%;
       padding: 0;
       margin: 0;
-      background: #000;
+      background: rgb(209, 138, 138);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -51,7 +51,7 @@
     #pinkboard:after {
       content: '';
       position: absolute;
-      background: #FF5CA4;
+      background: #3087aa;
       width: 100px;
       height: 160px;
       border-top-left-radius: 50px;
@@ -62,7 +62,7 @@
       left: 100px;
       transform: rotate(-45deg);
       transform-origin: 0 100%;
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+      box-shadow: 0 14px 28px #b82cc544,
         0 10px 10px rgba(0, 0, 0, 0.22);
     }
 
@@ -89,13 +89,157 @@
         transform: scale(1);
       }
     }
+
+    @-webkit-keyframes snowflakes-fall {
+      0% {
+        top: -10%
+      }
+  
+      100% {
+        top: 100%
+      }
+    }
+  
+    @-webkit-keyframes snowflakes-shake {
+  
+      0%,
+      100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+      }
+  
+      50% {
+        -webkit-transform: translateX(80px);
+        transform: translateX(80px)
+      }
+    }
+  
+    @keyframes snowflakes-fall {
+      0% {
+        top: -10%
+      }
+  
+      100% {
+        top: 100%
+      }
+    }
+  
+    @keyframes snowflakes-shake {
+  
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+  
+      50% {
+        transform: translateX(80px)
+      }
+    }
+  
+    .snowflake {
+      color: #fff;
+      font-size: 1em;
+      font-family: Arial, sans-serif;
+      text-shadow: 0 0 5px #000;
+      position: fixed;
+      top: -10%;
+      z-index: 9999;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: default;
+      -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+      -webkit-animation-duration: 10s, 3s;
+      -webkit-animation-timing-function: linear, ease-in-out;
+      -webkit-animation-iteration-count: infinite, infinite;
+      -webkit-animation-play-state: running, running;
+      animation-name: snowflakes-fall, snowflakes-shake;
+      animation-duration: 10s, 3s;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      animation-play-state: running, running;
+    }
+  
+    .snowflake:nth-of-type(0) {
+      left: 1%;
+      -webkit-animation-delay: 0s, 0s;
+      animation-delay: 0s, 0s
+    }
+  
+    .snowflake:nth-of-type(1) {
+      left: 10%;
+      -webkit-animation-delay: 1s, 1s;
+      animation-delay: 1s, 1s
+    }
+  
+    .snowflake:nth-of-type(2) {
+      left: 20%;
+      -webkit-animation-delay: 6s, .5s;
+      animation-delay: 6s, .5s
+    }
+  
+    .snowflake:nth-of-type(3) {
+      left: 30%;
+      -webkit-animation-delay: 4s, 2s;
+      animation-delay: 4s, 2s
+    }
+  
+    .snowflake:nth-of-type(4) {
+      left: 40%;
+      -webkit-animation-delay: 2s, 2s;
+      animation-delay: 2s, 2s
+    }
+  
+    .snowflake:nth-of-type(5) {
+      left: 50%;
+      -webkit-animation-delay: 8s, 3s;
+      animation-delay: 8s, 3s
+    }
+  
+    .snowflake:nth-of-type(6) {
+      left: 60%;
+      -webkit-animation-delay: 6s, 2s;
+      animation-delay: 6s, 2s
+    }
+  
+    .snowflake:nth-of-type(7) {
+      left: 70%;
+      -webkit-animation-delay: 2.5s, 1s;
+      animation-delay: 2.5s, 1s
+    }
+  
+    .snowflake:nth-of-type(8) {
+      left: 80%;
+      -webkit-animation-delay: 1s, 0s;
+      animation-delay: 1s, 0s
+    }
+  
+    .snowflake:nth-of-type(9) {
+      left: 90%;
+      -webkit-animation-delay: 3s, 1.5s;
+      animation-delay: 3s, 1.5s
+    }
+  
+    .snowflake:nth-of-type(10) {
+      left: 25%;
+      -webkit-animation-delay: 2s, 0s;
+      animation-delay: 2s, 0s
+    }
+  
+    .snowflake:nth-of-type(11) {
+      left: 65%;
+      -webkit-animation-delay: 4s, 2.5s;
+      animation-delay: 4s, 2.5s
+    }
+
+
   </style>
 </HEAD>
 
 <BODY>
   <div class="box">
-    <canvas id="pinkboard">
-    </canvas>
+    <canvas id="pinkboard"></canvas>
     
   </div>
   <script>
@@ -114,7 +258,10 @@
     /*
      * RequestAnimationFrame polyfill by Erik Möller
      */
-    (function () { var b = 0; var c = ["ms", "moz", "webkit", "o"]; for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) { window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"]; window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] } if (!window.requestAnimationFrame) { window.requestAnimationFrame = function (h, e) { var d = new Date().getTime(); var f = Math.max(0, 16 - (d - b)); var g = window.setTimeout(function () { h(d + f) }, f); b = d + f; return g } } if (!window.cancelAnimationFrame) { window.cancelAnimationFrame = function (d) { clearTimeout(d) } } }());
+    (function () { var b = 0; var c = ["ms", "moz", "webkit", "o"];
+     for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) 
+     { window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
+      window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] } if (!window.requestAnimationFrame) { window.requestAnimationFrame = function (h, e) { var d = new Date().getTime(); var f = Math.max(0, 16 - (d - b)); var g = window.setTimeout(function () { h(d + f) }, f); b = d + f; return g } } if (!window.cancelAnimationFrame) { window.cancelAnimationFrame = function (d) { clearTimeout(d) } } }());
     /*
      * Point class
      */
@@ -330,7 +477,7 @@
       }, 10);
     })(document.getElementById('pinkboard'));
   </script>
-  <div class="center-text" , style="background-color:rgb(0, 0, 0);
+  <div class="center-text" , style="background-color:rgb(82, 147, 185);
         width: 100%;
         color: rgb(247, 189, 231);
         height:100%;
@@ -341,6 +488,23 @@
         justify-content: center;
         margin-bottom: 5px;
         text-align: center;"><h3>達也</br>お前黙れ! </br> 変態なこいつ</h3></div>
+        <div class="snowflakes" aria-hidden="true">
+          <div class="snowflake">❅</div>
+          <div class="snowflake">❆</div>
+          <div class="snowflake">❅</div>
+          <div class="snowflake">❆</div>
+          <div class="snowflake">❅</div>
+          <div class="snowflake">❆</div>
+          <div class="snowflake">❅</div>
+          <div class="snowflake">❆</div>
+          <div class="snowflake">❅</div>
+          <div class="snowflake">❆</div>
+          <div class="snowflake">❅</div>
+          <div class="snowflake">❆</div>
+        </div>
+        
+      
+       
 </BODY>
 
 </HTML>
